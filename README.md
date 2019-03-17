@@ -1,6 +1,6 @@
 # v0.05.4
 Patch Notes:
-- Fai;proof reset button
+- Failproof reset button
 - ~~Added new material theme~~
 - Replaced Classic theme with Material theme
 - Made skins toggleable
