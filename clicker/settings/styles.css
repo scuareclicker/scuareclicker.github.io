@@ -2,10 +2,9 @@ body {
   padding: 0; margin: 0;
 	background-color: rgb(220, 220, 220);
 }
-#button {
+.button {
   font-family: Ubuntu Mono;
   border-radius: 10px;
-  background-color: rgb(238, 238, 238);
   font-size: 30px;
   border: none;
   -webkit-touch-callout: none;
@@ -16,19 +15,15 @@ body {
   user-select: none;
   cursor: pointer;
 }
-#button:active {
-  background-color: lightgray;
-}
-#button:focus {
+.button:focus {
   outline: none;
   border: none;
 }
 
-.dropdownSkins {
+.dropDownMenu {
   font-size: 32px;
   font-family: Ubuntu Mono;
   padding: 2px;
-  background-color: rgb(238, 238, 238);
   border-radius: 10px 10px 0px 0px;
   width: 128px;
   text-align: center;
@@ -38,7 +33,6 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  cursor: pointer;
 }
 
 .middleSkinsMenu {
@@ -80,4 +74,12 @@ body {
 
 .middleSkinsMenu:hover {
   background-color: lightgray;
+}
+
+#page {
+  margin-top: 1px;
+  position: absolute;
+  width: 600px;
+  height: 1200px;
+  background-color: red;
 }

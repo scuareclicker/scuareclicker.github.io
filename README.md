@@ -1,3 +1,12 @@
+# v0.06.1
+Pathc Notes:
+- Mta/NYC Tranist based theme and dark themes
+- Better settings menu
+- Added downloadable versions for ia32 and x64 archs on mac, linux, and windows
+- rebrand.ly/scuaredownload
+
+Please report your bugs
+
 # v0.05.4
 Patch Notes:
 - Failproof reset button
@@ -18,8 +27,6 @@ Patch Notes:
 - Colors!, after tier 3, you can change the color of your scuare.
 - Added beta for testing features before official release: https://scuareclicker.github.io/beta/
 - https://scuareclicker.github.io now redirects to https://scuareclicker.github.io/clicker/index.html
-
-Please report your bugs in issues
 
 # v0.04.6
 Patch Notes:
