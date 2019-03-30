@@ -97,12 +97,12 @@ function preload() {
 }
 
 function setup() {
-	createCanvas(600, 1200);
+	createCanvas(600, 1120);
 	document.head.append(styles);
 	// 	This Creates all the buttons.
 	// Skins
 	settingsButton = createButton('Settings');
-	settingsButton.position(10, 1160);
+	settingsButton.position(10, 1080);
 	settingsButton.mousePressed(settings);
 	settingsButton.id('button');
 	// Tier
