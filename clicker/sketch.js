@@ -30,11 +30,17 @@ var colonialism = false;
 var capitalism = false;
 var industry = false;
 var spaceShips = false;
-var currentLevel = 'None';
-var nextLevel = 'Civilization';
+
+var currentResearchLevel = 'None';
+var nextResearchLevel = 'Civilization';
+
 var techCostSC = 0;
 var tectCost$ = 0;
 var techCostLand = 0;
+
+var techBonusMoney = 0;
+var techBonusScuare = 0;
+var techBonusLand = 0;
 // Colors
 var scuareColor;
 var squareColor = localStorage.getItem('skinColor') || 'white';
@@ -73,6 +79,8 @@ var sixTrain;
 var fTrain;
 var qTrain;
 var sevenTrain;
+// Sounds
+var pop;
 // CSS
 var styles = document.createElement('style');
 
@@ -93,11 +101,12 @@ function preload() {
 	qTrainSmall = loadImage("https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/NYCS-bull-trans-Q.svg/240px-NYCS-bull-trans-Q.svg.png");
 	sevenTrain = loadImage("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/NYCS-bull-trans-7.svg/600px-NYCS-bull-trans-7.svg.png");
 	sevenTrainSmall = loadImage("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/NYCS-bull-trans-7.svg/240px-NYCS-bull-trans-7.svg.png");
+	pop = loadSound("assets/pop.wav");
 
 }
 
 function setup() {
-	createCanvas(600, 1120);
+	createCanvas(1000, 1120);
 	document.head.append(styles);
 	// 	This Creates all the buttons.
 	// Skins
@@ -134,9 +143,9 @@ function draw() {
 			"button:active {" +
 			"background-color: lightgray;" +
 			"}";
-			textColor = 'black';
-			generalColor = color(238, 238, 238);
-			pressColor = 'lightgray';
+		textColor = 'black';
+		generalColor = color(238, 238, 238);
+		pressColor = 'lightgray';
 	} else if (theme == "dark") {
 		bgColor = '#222831';
 		document.body.style.backgroundColor = "#222831";
@@ -147,9 +156,9 @@ function draw() {
 			"button:active {" +
 			"background-color: gray;" +
 			"}";
-			textColor = '#b55400';
-			generalColor = '#393e46';
-			pressColor = 'gray';
+		textColor = '#b55400';
+		generalColor = '#393e46';
+		pressColor = 'gray';
 	}
 	cheatCode = localStorage.getItem('cheatCodeSave');
 	if (cheatCode == "FeatherLessBiped") {
@@ -184,7 +193,11 @@ function game() {
 		moneyGen = true;
 	}
 	// Scuare Counter
-	text(int(str(counter)) + ' scuares', 10, 25);
+	if (theme == "light" || theme == "dark") {
+		text(int(str(counter)) + ' scuares', 10, 25);
+	} else if (theme == "MTA") {
+		text(int(str(counter)) + ' delays', 10, 25);
+	}
 	// Full Skin Themes
 	if (skins == "full") {
 		fill(squareColor);
@@ -292,29 +305,38 @@ function clicker() {
 	if (hitScuare && mouseIsPressed && tier == 1) {
 		counter = counter + 1;
 		scuareColor = 'lightgray';
+		pop.play();
 	} else if (hitScuare && mouseIsPressed && tier == 2) {
 		counter = counter + 10;
+		pop.play();
 		scuareColor = 'lightgray';
 	} else if (hitScuare && mouseIsPressed && tier == 3) {
 		counter = counter + 25;
+		pop.play();
 		scuareColor = 'lightgray';
 	} else if (hitScuare && mouseIsPressed && tier == 4) {
 		counter = counter + 100;
+		pop.play();
 		scuareColor = 'lightgray';
 	} else if (hitScuare && mouseIsPressed && tier == 5) {
 		counter = counter + 400;
+		pop.play();
 		scuareColor = 'lightgray';
 	} else if (hitScuare && mouseIsPressed && tier == 6) {
 		counter = counter + 1000;
+		pop.play();
 		scuareColor = 'lightgray';
 	} else if (hitScuare && mouseIsPressed && tier == 7) {
 		counter = counter + 10000;
+		pop.play();
 		scuareColor = 'lightgray';
 	} else if (hitScuare && mouseIsPressed && tier == 8) {
 		counter = counter + 25000;
+		pop.play();
 		scuareColor = 'lightgray';
 	} else if (hitScuare && mouseIsPressed && tier == 9) {
 		counter = counter + 100000;
+		pop.play();
 		scuareColor = 'lightgray';
 	} else {
 		scuareColor = color(238, 238, 238);
@@ -324,6 +346,18 @@ function clicker() {
 	} else {
 		craftColor = generalColor;
 	}
+	//filler
+	//filler
+	//filler
+	//filler
+	//filler
+	//filler
+	if (money == 0) {
+		//do nothing
+	} else {
+		//still do nothing
+	}
+	//Don't look at this chet pls
 	// Cheat that makes debugging easier
 	if (keyIsDown(27) && keyIsDown(16) && keyIsDown(18) && keyIsDown(18)) {
 		console.log("hackz");
@@ -333,10 +367,6 @@ function clicker() {
 
 function settings() {
 	window.open("settings/index.html", "_self")
-}
-
-function research() {
-
 }
 
 function hitboxes() {
@@ -495,6 +525,13 @@ function shop() {
 		text('Hire', 48, 1025);
 		text('Cost:' + '$' + craftCost, 10, 1061);
 	}
+}
+
+function research() {
+	if (currentResearchLevel == 1) {
+
+	}
+
 }
 
 function autos() {
