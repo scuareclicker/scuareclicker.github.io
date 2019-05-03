@@ -106,7 +106,7 @@ function preload() {
 }
 
 function setup() {
-	createCanvas(1000, 1120);
+	createCanvas(600, 1120);
 	document.head.append(styles);
 	// 	This Creates all the buttons.
 	// Skins
@@ -526,14 +526,6 @@ function shop() {
 		text('Cost:' + '$' + craftCost, 10, 1061);
 	}
 }
-
-function research() {
-	if (currentResearchLevel == 1) {
-
-	}
-
-}
-
 function autos() {
 	counter = counter + autoOutput + workerOutput + craftOutput;
 	if (moneyGen === true) {
