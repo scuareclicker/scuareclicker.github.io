@@ -1,2 +1,2 @@
 # Scuare Clicker Reloaded
-Coming in June
+Coming in June.
