@@ -3,6 +3,7 @@ var bgColor = '#EEEEEE';
 var elementColor = 'white';
 var textColor = 'black';
 var scuareColor = 'white';
+var clickedColor = 'lightgray';
 var theme = 'light';
 var currentScreen = 'game';
 //Top Menu Variables
@@ -58,6 +59,7 @@ function hitboxes() {
 	hitScuare = collidePointRect(mouseX, mouseY, 200, 200, 200, 200);
 	hitScreen1 = collidePointRect(mouseX, mouseY, 70, 10, 100, 50);
 	hitScreen2 = collidePointRect(mouseX, mouseY, 190, 10, 100, 50);
+	hitUpgradeButton = collidePointRect(mouseX, mouseY, 10, 216, 200, 40);
 }
 
 function saveGame() {
@@ -124,6 +126,21 @@ function mousePressed() {
 	if (hitScreen2) {
 		currentScreen = 'shop';
 	}
+
+	if (hitUpgradeButton && scuares >= tierCost) {
+		tier++;
+	}
+}
+
+function keyPressed() {
+	if (keyCode === 49 && scuares >= tierCost) {
+	  tier++;
+	}
+	else if(keyCode == 49 && scuares < tierCost) {
+	  fill('red');
+	  textAlign(CENTER);
+	  text('not enough scuares', width/2, 300);
+	}
 }
 
 function game() {
@@ -132,11 +149,12 @@ function game() {
 	screenMenu();
 	// Having shortcuts load here stops you from farming scuares in the shop
 	keyboardShortcuts();
+	tierCostIncrease();
 	// The Scuare
 	rectMode(CENTER);
 	noStroke();
 	fill(scuareColor);
-	// Calls upon scuareTeirs() and makes scuare smaller to give feedback to the clicks
+	// Calls upon scuareTiers() and makes scuare smaller to give feedback to the clicks
 	// If 32(spacebar) is pressed, scuareTiers is called, just like if how the scuare is clicked
 	if (hitScuare && mouseIsPressed || keyIsDown(32)) {
 		rect(300, 300, 190, 190, 10);
@@ -157,29 +175,49 @@ function game() {
 
 function keyboardShortcuts() {}
 
+function tierCostIncrease() {
+	if (tier == 1) {
+		tierCost = 10000;
+	} else if (tier == 2) {
+		tierCost = 1000000
+	}
+}
+
 function scuareTiers() {
 	// This controls how scuare gain is changes by tiers
 	if (tier == 1) {
 		scuares++;
-	}
-	else if (tier == 2) {
-	  scuares = scuares + 12
+	} else if (tier == 2) {
+		scuares = scuares + 12;
 	}
 }
 
 function shop() {
-  // Main UI for buying autos and upgrading tiers
+	// Main UI for buying autos and upgrading tiers
 	background(bgColor);
 	screenMenu();
+	clickedEffects();
+	tierCostIncrease();
 	fill(textColor);
 	textSize(40);
 	text('shop', 300, 100);
 	textAlign(LEFT);
 	textSize(30);
 	text(int(str(scuares)) + ' scuares', 10, 130);
+	// Tier Upgrades
 	text('tier: ' + tier, 10, 170);
 	text('cost: ' + int(str(tierCost)) + " scuares", 10, 200);
 	fill(tierUpgradeColor);
-	rect(10, 216, 100, 40, 10);
-	
+	rect(10, 216, 200, 40, 10);
+	textAlign(CENTER);
+	fill(textColor);
+	text('upgrade', 110, 248);
+}
+
+function clickedEffects() {
+	if (hitUpgradeButton && mouseIsPressed) {
+		tierUpgradeColor = clickedColor;
+	} else {
+		tierUpgradeColor = elementColor;
+	}
 }
