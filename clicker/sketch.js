@@ -133,13 +133,11 @@ function mousePressed() {
 }
 
 function keyPressed() {
+	// Automatically called, just lke mousePressed();
 	if (keyCode === 49 && scuares >= tierCost) {
-	  tier++;
-	}
-	else if(keyCode == 49 && scuares < tierCost) {
-	  fill('red');
-	  textAlign(CENTER);
-	  text('not enough scuares', width/2, 300);
+		tier++;
+	} else if (keyCode == 49 && scuares < tierCost) {
+		alert('Not enought scuares to upgrade tier');
 	}
 }
 
