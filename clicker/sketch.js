@@ -136,8 +136,9 @@ function keyPressed() {
 	// Automatically called, just lke mousePressed();
 	if (keyCode === 49 && scuares >= tierCost) {
 		tier++;
+		alertify.notify('tier upgraded!', 'success', 1);
 	} else if (keyCode == 49 && scuares < tierCost) {
-		alert('Not enought scuares to upgrade tier');
+		alertify.notify('not enough scuares!', 'error', 1);
 	}
 }
 
