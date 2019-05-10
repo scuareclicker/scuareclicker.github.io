@@ -1,11 +1,11 @@
 body {
   padding: 0; margin: 0;
-	background-color: rgb(220, 220, 220);
+	background-color: white;
+	font-family: Nova Mono;
 }
 button {
   font-family: Ubuntu Mono;
   border-radius: 10px;
-  background-color: rgb(238, 238, 238);
   font-size: 30px;
   border: none;
   -webkit-touch-callout: none;
@@ -14,9 +14,6 @@ button {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-button:active {
-  background-color: lightgray;
 }
 button:focus {
   outline: none;
