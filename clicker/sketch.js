@@ -13,6 +13,7 @@ var screen3Color;
 var screen4Color;
 //Variables for color effects
 var tierUpgradeColor = elementColor;
+var workerBuyColor = elementColor;
 //Hitbox Variables
 var hitScuare;
 var hitScreen1;
@@ -22,6 +23,10 @@ var hitScreen2;
 var scuares = parseInt(localStorage.getItem('scuareSave')) || 0;
 var tier = parseInt(localStorage.getItem('tierSave')) || 1;
 var tierCost = 10000;
+//Autos
+var workers = 0;
+var workerCost = 1000;
+var workerEfficiency = 1;
 
 function setup() {
 	createCanvas(600, 645);
@@ -34,6 +39,7 @@ function draw() {
 	hitboxes();
 	saveGame();
 	selectedEffect();
+	automatedGain();
 	noStroke();
 	// Choses what screen you're on
 	if (currentScreen == 'game') {
@@ -60,6 +66,7 @@ function hitboxes() {
 	hitScreen1 = collidePointRect(mouseX, mouseY, 70, 10, 100, 50);
 	hitScreen2 = collidePointRect(mouseX, mouseY, 190, 10, 100, 50);
 	hitUpgradeButton = collidePointRect(mouseX, mouseY, 10, 216, 200, 40);
+	hitWorkerButton = collidePointRect(mouseX, mouseY, 10, 336, 200, 40);
 }
 
 function saveGame() {
@@ -92,6 +99,11 @@ function selectedEffect() {
 		screen4Color = elementColor;
 	}
 
+}
+
+function automatedGain() {
+	// This function controla how autos like workers and autoscuarers work
+	scuares = scuares + (workers * 0.15);
 }
 
 function screenMenu() {
@@ -128,7 +140,16 @@ function mousePressed() {
 	}
 
 	if (hitUpgradeButton && scuares >= tierCost) {
+		scuares = scuares - tierCost;
 		tier++;
+
+	}
+	if (hitWorkerButton && scuares >= workerCost) {
+		workers++;
+		scuares = scuares - workerCost;
+		// This will be the base formula for cost increase
+		// basecost * multiplier^#unit
+		workerCost = workerCost * 1.15 ^ workers;
 	}
 }
 
@@ -138,6 +159,14 @@ function keyPressed() {
 		tier++;
 		alertify.notify('tier upgraded!', 'success', 1);
 	} else if (keyCode == 49 && scuares < tierCost) {
+		alertify.notify('not enough scuares!', 'error', 1);
+	}
+	if (keyCode === 50 && scuares >= workerCost) {
+		workers++;
+		scuares = scuares - workerCost;
+		workerCost = workerCost * 1.15 ^ workers;
+		alertify.notify('enslaved a worker!', 'success', 1);
+	} else if (keyCode == 50 && scuares < workerCost) {
 		alertify.notify('not enough scuares!', 'error', 1);
 	}
 }
@@ -163,13 +192,12 @@ function game() {
 	}
 	//counter for scuares
 	fill(textColor);
-	textSize(40);
-	text('scuare clicker reloaded', 300, 100);
 	textSize(32);
 	textAlign(LEFT);
-	text('tier: ' + tier, 10, 450);
-	text('cost: ' + int(str(tierCost)), 165, 450);
-	text(int(str(scuares)) + ' scuares', 10, 482);
+	text(int(str(scuares)) + ' scuares', 10, 100);
+	text('tier:' + tier + '  cost:' + int(str(tierCost)), 10, 450);
+	text('workers:' + workers + '  cost:' + int(str(workerCost)), 10, 482);
+	console.log(mouseX)
 }
 
 function keyboardShortcuts() {}
@@ -211,6 +239,15 @@ function shop() {
 	textAlign(CENTER);
 	fill(textColor);
 	text('upgrade', 110, 248);
+	// Workers
+	textAlign(LEFT);
+	text('workers: ' + workers, 10, 290);
+	text('cost: ' + int(str(workerCost)) + " scuares", 10, 320);
+	fill(workerBuyColor);
+	rect(10, 336, 200, 40, 10);
+	textAlign(CENTER);
+	fill(textColor);
+	text('enslave', 110, 368);
 }
 
 function clickedEffects() {
@@ -218,5 +255,10 @@ function clickedEffects() {
 		tierUpgradeColor = clickedColor;
 	} else {
 		tierUpgradeColor = elementColor;
+	}
+	if (hitWorkerButton && mouseIsPressed) {
+		workerBuyColor = clickedColor;
+	} else {
+		workerBuyColor = elementColor;
 	}
 }
