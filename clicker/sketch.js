@@ -73,10 +73,7 @@ function hitboxes() {
 
 function saveGame() {
 	// Saves variables as strings, converted to integers later
-	if (!localStorage.getItem("visted")) {
 		localStorage.clear();
-		localStorage.setItem("visted", true);
-	} else {
 		localStorage.setItem('scuareSave', scuares);
 		localStorage.setItem('tierSave', tier);
 		localStorage.setItem('workerSave', workers);
