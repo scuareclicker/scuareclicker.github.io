@@ -79,7 +79,6 @@ function saveGame() {
 		localStorage.setItem('workerCostSave', workerCost);
         localStorage.clear();
 	}
-}
 
 function selectedEffect() {
 	// Controls Selected Effect on Buttons
