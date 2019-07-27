@@ -18,6 +18,7 @@ var workerBuyColor = elementColor;
 var hitScuare;
 var hitScreen1;
 var hitScreen2;
+var hitScreen4;
 //Gameplay Variables
 // This will either get the save from localStorage or, if it is undefined, set scuares to 0
 var scuares = parseInt(localStorage.getItem('scuareSave')) || 0;
@@ -33,8 +34,10 @@ function setup() {
 }
 
 function draw() {
+  //Font for the main game menu
 	textFont("Nova Mono");
 	textSize(24);
+	//Loads Essential Functions
 	themeColors();
 	hitboxes();
 	saveGame();
@@ -46,6 +49,9 @@ function draw() {
 		game();
 	} else if (currentScreen == 'shop') {
 		shop();
+	}
+		else if (currentScreen == 'settings') {
+		settings();
 	}
 }
 
@@ -65,6 +71,7 @@ function hitboxes() {
 	hitScuare = collidePointRect(mouseX, mouseY, 200, 200, 200, 200);
 	hitScreen1 = collidePointRect(mouseX, mouseY, 70, 10, 100, 50);
 	hitScreen2 = collidePointRect(mouseX, mouseY, 190, 10, 100, 50);
+	hitScreen4 = collidePointRect(mouseX, mouseY, 430, 10, 100, 50);
 	hitUpgradeButton = collidePointRect(mouseX, mouseY, 10, 216, 200, 40);
 	hitWorkerButton = collidePointRect(mouseX, mouseY, 10, 336, 200, 40);
 }
@@ -73,11 +80,13 @@ function saveGame() {
 	// Saves variables as strings, converted to integers later
 	localStorage.setItem('scuareSave', scuares);
 	localStorage.setItem('tierSave', tier);
+	localStorage.setItem('workerSave', workers);
+	localStorage.setItem('workerCostSave', workerCost);
 	localStorage.clear();
 }
 
 function selectedEffect() {
-	// Controls Selected Effect
+	// Controls Selected Effect on Buttons
 	if (currentScreen == 'game') {
 		screen1Color = 'lightgray';
 	} else {
@@ -138,6 +147,9 @@ function mousePressed() {
 	if (hitScreen2) {
 		currentScreen = 'shop';
 	}
+	if(hitScreen4) {
+	  currentScreen = 'settings'
+	}
 
 	if (hitUpgradeButton && scuares >= tierCost) {
 		scuares = scuares - tierCost;
@@ -157,6 +169,7 @@ function keyPressed() {
 	// Automatically called, just lke mousePressed();
 	if (keyCode === 49 && scuares >= tierCost) {
 		tier++;
+		scuares = scuares - tierCost;
 		alertify.notify('tier upgraded!', 'success', 1);
 	} else if (keyCode == 49 && scuares < tierCost) {
 		alertify.notify('not enough scuares!', 'error', 1);
@@ -169,6 +182,8 @@ function keyPressed() {
 	} else if (keyCode == 50 && scuares < workerCost) {
 		alertify.notify('not enough scuares!', 'error', 1);
 	}
+	  // Some of these are alerts for when items are bought or cost too much
+
 }
 
 function game() {
@@ -190,14 +205,13 @@ function game() {
 	} else {
 		rect(300, 300, 200, 200, 10);
 	}
-	//counter for scuares
+	//counter for how many scuares you have
 	fill(textColor);
 	textSize(32);
 	textAlign(LEFT);
 	text(int(str(scuares)) + ' scuares', 10, 100);
 	text('tier:' + tier + '  cost:' + int(str(tierCost)), 10, 450);
 	text('workers:' + workers + '  cost:' + int(str(workerCost)), 10, 482);
-	console.log(mouseX)
 }
 
 function keyboardShortcuts() {}
@@ -207,15 +221,19 @@ function tierCostIncrease() {
 		tierCost = 10000;
 	} else if (tier == 2) {
 		tierCost = 1000000
+	} else if (tier == 3) {
+		tierCost = 100000000
 	}
 }
 
 function scuareTiers() {
-	// This controls how scuare gain is changes by tiers
+	// This controls how scuare gain w/ click is changes by tiers
 	if (tier == 1) {
 		scuares++;
 	} else if (tier == 2) {
 		scuares = scuares + 12;
+	} else if (tier == 3) {
+		scuares = scuares + 25;
 	}
 }
 
@@ -248,6 +266,12 @@ function shop() {
 	textAlign(CENTER);
 	fill(textColor);
 	text('enslave', 110, 368);
+	if (workers >= 10 && tier >= 10) {
+		// Autoscuarers
+		textAlign(LEFT);
+		text('workers: ' + workers, 10, 410);
+
+	}
 }
 
 function clickedEffects() {
@@ -261,4 +285,10 @@ function clickedEffects() {
 	} else {
 		workerBuyColor = elementColor;
 	}
+}
+
+function settings() {
+  // Pretty Self-Explanitory
+  background(bgColor);
+	screenMenu();
 }
