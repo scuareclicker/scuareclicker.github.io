@@ -14,6 +14,7 @@ var screen4Color;
 //Variables for color effects
 var tierUpgradeColor = elementColor;
 var workerBuyColor = elementColor;
+var resetColor = elementColor;
 //Hitbox Variables
 var hitScuare;
 var hitScreen1;
@@ -74,6 +75,7 @@ function hitboxes() {
 	hitScreen4 = collidePointRect(mouseX, mouseY, 430, 10, 100, 50);
 	hitUpgradeButton = collidePointRect(mouseX, mouseY, 10, 216, 200, 40);
 	hitWorkerButton = collidePointRect(mouseX, mouseY, 10, 336, 200, 40);
+    hitResetButton = collidePointRect(mouseX, mouseY, 10, 114, 200, 40)
 }
 
 function saveGame() {
@@ -163,6 +165,10 @@ function mousePressed() {
 		// basecost * multiplier^#unit
 		workerCost = workerCost * 1.15 ^ workers;
 	}
+    // Will Redirect itself to a different funcition bcuz I don't want the code getting cluttered
+    if (hitResetButton) {
+        reset()
+    }
 }
 
 function keyPressed() {
@@ -285,10 +291,41 @@ function clickedEffects() {
 	} else {
 		workerBuyColor = elementColor;
 	}
+    if (hitResetButton && mouseIsPressed) {
+		resetColor = clickedColor;
+	} else {
+		resetColor = elementColor;
+	}
+}
+
+function reset() {
+    var resetConfirm = confirm("Really reset all your game data?");
+	if (resetConfirm) {
+        scuares = 0
+        tier = 1;
+        tierCost = 10000;
+        workers = 0;
+        workerCost = 1000;
+        workerEfficiency = 0;
+        localStorage.clear();
+    }
 }
 
 function settings() {
   // Pretty Self-Explanitory
   background(bgColor);
-	screenMenu();
+  screenMenu();
+  clickedEffects();
+  fill(textColor);
+  textSize(40);
+  text('settings', 300, 100);
+  // Reset Button
+	fill(resetColor);
+	rect(10, 114, 200, 40, 10);
+	textAlign(CENTER);
+    textAlign(LEFT);
+	textSize(30);
+	fill(textColor);
+	text('reset', 10, 146);
+    console.log(mouseX)
 }
