@@ -307,7 +307,6 @@ function reset() {
     workers = 0;
     workerCost = 1000;
     workerEfficiency = 0;
-    localStorage.clear();
   }
 }
 
