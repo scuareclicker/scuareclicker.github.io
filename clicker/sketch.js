@@ -84,7 +84,6 @@ function saveGame() {
   localStorage.setItem('tierSave', tier);
   localStorage.setItem('workerSave', workers);
   localStorage.setItem('workerCostSave', workerCost);
-  localStorage.clear();
 }
 
 function selectedEffect() {
@@ -307,6 +306,7 @@ function reset() {
     workers = 0;
     workerCost = 1000;
     workerEfficiency = 0;
+    localstorage.clear();
   }
 }
 
