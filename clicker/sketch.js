@@ -27,8 +27,8 @@ var scuares = parseInt(localStorage.getItem('scuareSave')) || 0;
 var tier = parseInt(localStorage.getItem('tierSave')) || 1;
 var tierCost = 10000;
 //Autos
-var workers = 0;
-var workerCost = 1000;
+var workers = parseInt(localStorage.getItem('workerSave')) || 0;
+var workerCost = parseInt(localStorage.getItem('workerCostSave')) || 1000;
 var workerEfficiency = 1;
 
 function setup() {
