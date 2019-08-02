@@ -27,8 +27,8 @@ var scuares = parseInt(localStorage.getItem('scuareSave')) || 0;
 var tier = parseInt(localStorage.getItem('tierSave')) || 1;
 var tierCost = 10000;
 //Autos
-var workers = 0;
-var workerCost = 1000;
+var workers = parseInt(localStorage.getItem('workerSave')) || 0;
+var workerCost = parseInt(localStorage.getItem('workerCostSave')) || 1000;
 var workerEfficiency = 1;
 
 function setup() {
@@ -84,7 +84,6 @@ function saveGame() {
   localStorage.setItem('tierSave', tier);
   localStorage.setItem('workerSave', workers);
   localStorage.setItem('workerCostSave', workerCost);
-  localStorage.clear();
 }
 
 function selectedEffect() {
@@ -307,7 +306,7 @@ function reset() {
     workers = 0;
     workerCost = 1000;
     workerEfficiency = 0;
-    localStorage.clear();
+    localstorage.clear();
   }
 }
 
