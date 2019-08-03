@@ -7,6 +7,7 @@ var scuareColor = 'white';
 var clickedColor = 'lightgray';
 var theme = 'light';
 var currentScreen = 'game';
+var wikiLink;
 //Top Menu Variables
 var screen1Color;
 var screen2Color;
@@ -33,6 +34,10 @@ var workerEfficiency = 1;
 
 function setup() {
   createCanvas(600, 645);
+
+  //Link to the wiki
+  wikiLink = createA('https://github.com/scuareclicker/scuareclicker.github.io/wiki', 'Visit the wiki');
+  wikiLink.position(10, 645);
 }
 
 function draw() {
