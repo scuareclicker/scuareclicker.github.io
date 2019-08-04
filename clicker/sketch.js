@@ -1,4 +1,3 @@
-
 //UI Variables
 var bgColor = '#EEEEEE';
 var elementColor = 'white';
@@ -26,6 +25,7 @@ function setup() {
   wikiLink.position(10, 645);
 }
 
+function hitboxes() {
   hitScreen4 = collidePointRect(mouseX, mouseY, 430, 10, 100, 50);
   hitUpgradeButton = collidePointRect(mouseX, mouseY, 10, 216, 200, 40);
   hitWorkerButton = collidePointRect(mouseX, mouseY, 10, 336, 200, 40);
@@ -47,17 +47,16 @@ function selectedEffect() {
   // Controls Selected Effect on Screen Buttons
   if (currentScreen == 'game') {
     screen1Color = 'lightgray';
-  } else {
-}
+  } else {}
 
-function automatedGain() {
-  // This function controla how autos like workers and autoscuarers work
-  scuares = scuares + (workers * 0.15);
-  // This function controla how autos like workers and craftsmen work
-  scuares = scuares + (workers * 0.15) + (craftsmen * 1);
-}
+  function automatedGain() {
+    // This function controla how autos like workers and autoscuarers work
+    scuares = scuares + (workers * 0.15);
+    // This function controla how autos like workers and craftsmen work
+    scuares = scuares + (workers * 0.15) + (craftsmen * 1);
+  }
 
-function screenMenu() {
+  function screenMenu() {
     // basecost * multiplier^#unit
     workerCost = workerCost * 1.15 ^ workers;
   }
@@ -93,23 +92,23 @@ function screenMenu() {
   // Some of these are alerts for when items are bought or cost too much
 
 }
-  text(int(str(scuares)) + ' scuares', 10, 100);
-  text('tier:' + tier + '  cost:' + int(str(tierCost)), 10, 450);
-  text('workers:' + workers + '  cost:' + int(str(workerCost)), 10, 482);
-  if (workers >= 3) {
-    text('craftsmen:' + craftsmen + '  cost:' + int(str(craftsmenCost)), 10, 514);
-  }
+text(int(str(scuares)) + ' scuares', 10, 100);
+text('tier:' + tier + '  cost:' + int(str(tierCost)), 10, 450);
+text('workers:' + workers + '  cost:' + int(str(workerCost)), 10, 482);
+if (workers >= 3) {
+  text('craftsmen:' + craftsmen + '  cost:' + int(str(craftsmenCost)), 10, 514);
+}
 
 }
 
 function keyboardShortcuts() {}
-  textAlign(CENTER);
-  fill(textColor);
-  text('enslave', 110, 368);
-  if (workers >= 10 && tier >= 10) {
-    // Autoscuarers
-    textAlign(LEFT);
-    text('workers: ' + workers, 10, 410);
+textAlign(CENTER);
+fill(textColor);
+text('enslave', 110, 368);
+if (workers >= 10 && tier >= 10) {
+  // Autoscuarers
+  textAlign(LEFT);
+  text('workers: ' + workers, 10, 410);
   if (workers >= 3) {
     // Craftsmen
     text('craftsmen: ' + craftsmen, 10, 410);
@@ -122,23 +121,23 @@ function keyboardShortcuts() {}
 
   }
 }
-  } else {
-    workerBuyColor = elementColor;
-  }
-  if (hitCraftsmenButton && mouseIsPressed) {
-    craftsmenBuyColor = clickedColor;
-  } else {
-    craftsmenBuyColor = elementColor;
-  }
-  if (hitResetButton && mouseIsPressed) {
-    resetColor = clickedColor;
-  } else {
-    tierCost = 10000;
-    workers = 0;
-    workerCost = 1000;
-    workerEfficiency = 0;
-    craftsmen = 0;
-    craftsmenCost = 5000;
-    localstorage.clear();
-  }
+} else {
+  workerBuyColor = elementColor;
+}
+if (hitCraftsmenButton && mouseIsPressed) {
+  craftsmenBuyColor = clickedColor;
+} else {
+  craftsmenBuyColor = elementColor;
+}
+if (hitResetButton && mouseIsPressed) {
+  resetColor = clickedColor;
+} else {
+  tierCost = 10000;
+  workers = 0;
+  workerCost = 1000;
+  workerEfficiency = 0;
+  craftsmen = 0;
+  craftsmenCost = 5000;
+  localstorage.clear();
+}
 }
