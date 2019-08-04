@@ -35,12 +35,20 @@ var craftsmen = parseInt(localStorage.getItem('craftsmenSave')) || 0;
 var craftsmenCost = parseInt(localStorage.getItem('craftsmenCostSave')) || 5000;
 
 function setup() {
-  createCanvas(600, 645);
+var canvas = createCanvas(600, windowHeight);
+canvas.parent('sketch');
 
   //Link to the wiki
-  wikiLink = createA('https://github.com/scuareclicker/scuareclicker.github.io/wiki', 'Visit the wiki');
-  wikiLink.position(10, 645);
+  wikiLink = createA('https://github.com/scuareclicker/scuareclicker.github.io/wiki', 'Visit the wiki!');
+  wikiLink.position(10, 700);
 }
+
+// Stops Spacebar from scrolling the page
+window.onkeydown = function(e) {
+  if (e.keyCode == 32 && e.target == document.body) {
+    e.preventDefault();
+  }
+};
 
 function draw() {
   //Font for the main game menu
@@ -299,13 +307,14 @@ function shop() {
   text('enslave', 110, 368);
   if (workers >= 3) {
     // Craftsmen
+    textAlign(LEFT);
     text('craftsmen: ' + craftsmen, 10, 410);
     text('cost: ' + int(str(craftsmenCost)) + " scuares", 10, 440);
     fill(craftsmenBuyColor);
-    rect(10, 488, 200, 40, 10);
+    rect(10, 456, 200, 40, 10);
     textAlign(CENTER);
     fill(textColor);
-    text('hire', 110, 368);
+    text('hire', 110, 488);
   }
 }
 
