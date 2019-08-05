@@ -1,0 +1,20 @@
+body {
+  padding: 0; margin: 0;
+	background-color: rgb(220, 220, 220);
+}
+button {
+  font-family: Ubuntu Mono;
+  border-radius: 10px;
+  font-size: 30px;
+  border: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+button:focus {
+  outline: none;
+  border: none;
+}
