@@ -3,13 +3,13 @@ body {
   margin: 0;
   background-color: white;
   font-family: Nova Mono;
-}
-
-a {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+a {
   text-align: right;
   color: #006cb7;
   transition: 0.3s;
