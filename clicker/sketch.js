@@ -1,13 +1,13 @@
 //UI Variables
-var bgColor = '#EEEEEE';
+var bgColor = '#eeeeee';
 var elementColor = 'white';
 var textColor = 'black';
-var scuareColor = 'white';
+var scuareColor = localStorage.getItem('scuareColorSave') || '#fafafa';
 var clickedColor = 'lightgray';
 var theme = 'light';
 var currentScreen = 'game';
 var wikiLink;
-//Top Menu Variables
+//Screen Menu Variables
 var screen1Color;
 var screen2Color;
 var screen3Color;
@@ -22,12 +22,22 @@ var hitScuare;
 var hitScreen1;
 var hitScreen2;
 var hitScreen4;
+var hitUpgradeButton;
+var hitWorkerButton;
+var hitCraftsmenButton;
+var hitResetButton;
+//Skins
+var hitGraySkin;
+var hitBlueSkin;
+var hitRedSkin;
 //Gameplay Variables
 // This will either get the save from localStorage or, if it is undefined, set scuares to 0
 var scuares = parseInt(localStorage.getItem('scuareSave')) || 0;
 var tier = parseInt(localStorage.getItem('tierSave')) || 1;
 var tierCost = 10000;
-//Autos
+//Population/Research
+var population = 0;
+//Workers
 var workers = parseInt(localStorage.getItem('workerSave')) || 0;
 var workerCost = parseInt(localStorage.getItem('workerCostSave')) || 1000;
 //
@@ -35,8 +45,8 @@ var craftsmen = parseInt(localStorage.getItem('craftsmenSave')) || 0;
 var craftsmenCost = parseInt(localStorage.getItem('craftsmenCostSave')) || 5000;
 
 function setup() {
-var canvas = createCanvas(600, windowHeight);
-canvas.parent('sketch');
+  var canvas = createCanvas(600, windowHeight);
+  canvas.parent('sketch');
 
   //Link to the wiki
   wikiLink = createA('https://github.com/scuareclicker/scuareclicker.github.io/wiki', 'Visit the wiki!');
@@ -60,6 +70,7 @@ function draw() {
   saveGame();
   selectedEffect();
   automatedGain();
+  populationGain();
   noStroke();
   // Choses what screen you're on
   if (currentScreen == 'game') {
@@ -88,11 +99,25 @@ function hitboxes() {
   hitScreen1 = collidePointRect(mouseX, mouseY, 70, 10, 100, 50);
   hitScreen2 = collidePointRect(mouseX, mouseY, 190, 10, 100, 50);
   hitScreen4 = collidePointRect(mouseX, mouseY, 430, 10, 100, 50);
-  hitUpgradeButton = collidePointRect(mouseX, mouseY, 10, 216, 200, 40);
-  hitWorkerButton = collidePointRect(mouseX, mouseY, 10, 336, 200, 40);
-  hitResetButton = collidePointRect(mouseX, mouseY, 10, 114, 200, 40);
-  hitCraftsmenButton = collidePointRect(mouseX, mouseY, 10, 488, 200, 40)
-  hitResetButton = collidePointRect(mouseX, mouseY, 10, 114, 200, 40);
+  if (currentScreen == 'shop') {
+    //Shop elements
+    hitUpgradeButton = collidePointRect(mouseX, mouseY, 10, 216, 200, 40);
+    hitWorkerButton = collidePointRect(mouseX, mouseY, 10, 336, 200, 40);
+    if (workers >= 3) {
+      hitCraftsmenButton = collidePointRect(mouseX, mouseY, 10, 488, 200, 40);
+    }
+  } else if (currentScreen == 'settings') {
+    //Reset button
+    hitResetButton = collidePointRect(mouseX, mouseY, 10, 114, 200, 40);
+    //Skins
+    hitGraySkin = collidePointRect(mouseX, mouseY, 10, 220, 50, 50);
+    if (tier >= 2) {
+      hitBlueSkin = collidePointRect(mouseX, mouseY, 70, 220, 50, 50);
+      if (tier >= 3) {
+        hitRedSkin = collidePointRect(mouseX, mouseY, 130, 220, 50, 50);
+      }
+    }
+  }
 }
 
 function saveGame() {
@@ -103,10 +128,12 @@ function saveGame() {
   localStorage.setItem('workerCostSave', workerCost);
   localStorage.setItem('craftsmenSave', craftsmen);
   localStorage.setItem('craftsmenCostSave', craftsmenCost);
+  localStorage.setItem('scuareColorSave', scuareColor);
 }
 
 function selectedEffect() {
-  // Controls Selected Effect on Screen Buttons
+  // Controls Selected Effect
+  // Only applies to buttons on screen menu
   if (currentScreen == 'game') {
     screen1Color = 'lightgray';
   } else {
@@ -133,6 +160,12 @@ function selectedEffect() {
 function automatedGain() {
   // This function controls how autos like workers and autoscuarers work
   scuares = scuares + (workers * 0.15) + (craftsmen * 1);
+}
+
+function populationGain() {
+  // Controls your population value
+  // Could've increased population upon buying something but that makes saves before population update have 0 population
+  population = workers + craftsmen;
 }
 
 function screenMenu() {
@@ -189,7 +222,20 @@ function mousePressed() {
   }
   // Will Redirect itself to a different funcition bcuz I don't want the code getting cluttered
   if (hitResetButton) {
-    reset()
+    reset();
+  }
+  // Skins
+  if (hitGraySkin) {
+    scuareColor = '#fafafa';
+    alertify.notify('changed skin to gray!', 'success', 1)
+  }
+  if (hitBlueSkin) {
+    scuareColor = '#3f51b5';
+    alertify.notify('changed skin to blue!', 'success', 1);
+  }
+  if (hitRedSkin) {
+    scuareColor = '##c62828';
+    alertify.notify('changed skin to red!', 'success', 1)
   }
 }
 
@@ -234,6 +280,7 @@ function game() {
   // The Scuare
   rectMode(CENTER);
   noStroke();
+  // Skins functionality is stored in mousePressed()
   fill(scuareColor);
   // Calls upon scuareTiers() and makes scuare smaller to give feedback to the clicks
   // If 32(spacebar) is pressed, scuareTiers is called, just like if how the scuare is clicked
@@ -248,8 +295,13 @@ function game() {
   textSize(32);
   textAlign(LEFT);
   text(int(str(scuares)) + ' scuares', 10, 100);
+  //Population counter
+  text(int(str(population)) + ' population', 10, 132);
+  // Stats displays
+  // Worker counter
   text('tier:' + tier + '  cost:' + int(str(tierCost)), 10, 450);
   text('workers:' + workers + '  cost:' + int(str(workerCost)), 10, 482);
+  //Craftsmen counter
   if (workers >= 3) {
     text('craftsmen:' + craftsmen + '  cost:' + int(str(craftsmenCost)), 10, 514);
   }
@@ -266,7 +318,7 @@ function tierCostIncrease() {
 }
 
 function scuareTiers() {
-  // This controls how scuare gain w/ click is changes by tiers
+  // This controls how scuare gain per click is changed by tier value
   if (tier == 1) {
     scuares++;
   } else if (tier == 2) {
@@ -319,6 +371,7 @@ function shop() {
 }
 
 function clickedEffects() {
+  // This controls color change in buttons when clicked
   if (hitUpgradeButton && mouseIsPressed) {
     tierUpgradeColor = clickedColor;
   } else {
@@ -370,4 +423,20 @@ function settings() {
   textSize(30);
   fill(textColor);
   text('reset', 105, 146);
+  // Skins
+  textAlign(LEFT);
+  text('skin color:', 10, 200);
+  // Default/Tier 1/Gray
+  fill('#fafafa');
+  rect(10, 220, 50, 50, 10);
+  if (tier >= 2) {
+    // Blue/Tier 2
+    fill('#3f51b5');
+    rect(70, 220, 50, 50, 10);
+    if (tier >= 3) {
+      // Red/Tier 3
+      fill('#c62828');
+      rect(130, 220, 50, 50, 10);
+    }
+  }
 }
