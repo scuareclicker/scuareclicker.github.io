@@ -1,28 +1,28 @@
 // UI
-var counter = parseInt(localStorage.getItem('counterSave')) || 0;
-var money = parseInt(localStorage.getItem('moneySave')) || 0;
+var counter = parseInt(localStorage.getItem('counterSaveClassic')) || 0;
+var money = parseInt(localStorage.getItem('moneySaveClassic')) || 0;
 var counterText;
 // Upgrades
-var tier = parseInt(localStorage.getItem('tierSave')) || 1;
+var tier = parseInt(localStorage.getItem('tierSaveClassic')) || 1;
 var tierCost = 1000;
 // Autos
-var autoNumber = parseInt(localStorage.getItem('autoSaveNum')) || 0;
-var autoOutput = parseInt(localStorage.getItem('autSaveOut')) || autoNumber * 1.50;
-var autoCost = parseInt(localStorage.getItem('autoSaveCost')) || 1000;
+var autoNumber = parseInt(localStorage.getItem('autoSaveNumClassic')) || 0;
+var autoOutput = parseInt(localStorage.getItem('autSaveOutClassic')) || autoNumber * 1.50;
+var autoCost = parseInt(localStorage.getItem('autoSaveCostClassic')) || 1000;
 // Workers
-var workerNumber = parseInt(localStorage.getItem('workerSaveNum')) || 0;
-var workerCost = parseInt(localStorage.getItem('workerSaveCost')) || 100;
-var workerOutput = parseInt(localStorage.getItem('workerSaveOut')) || workerNumber * 1.26;
+var workerNumber = parseInt(localStorage.getItem('workerSaveNumClassic')) || 0;
+var workerCost = parseInt(localStorage.getItem('workerSaveCostClassic')) || 100;
+var workerOutput = parseInt(localStorage.getItem('workerSaveOutClassic')) || workerNumber * 1.26;
 // Craftsmen
-var craftNumber = parseInt(localStorage.getItem('craftSaveNum')) || 0;
-var craftOutput = parseInt(localStorage.getItem('craftSaveOut')) || craftNumber * 2.25;
-var craftCost = parseInt(localStorage.getItem('craftSaveCost')) || 10;
+var craftNumber = parseInt(localStorage.getItem('craftSaveNumClassic')) || 0;
+var craftOutput = parseInt(localStorage.getItem('craftSaveOutClassic')) || craftNumber * 2.25;
+var craftCost = parseInt(localStorage.getItem('craftSaveCostClassic')) || 10;
 // Gameplay
 var roundPocalypse = false;
 var decrease = 0;
 var moneyGen = false;
-var skins = localStorage.getItem('skinSave') || "on";
-var theme = localStorage.getItem('themeSave') || "light";
+var skins = localStorage.getItem('skinSaveClassic') || "on";
+var theme = localStorage.getItem('themeSaveClassic') || "light";
 //Research
 var civilization = false;
 var trade = false;
@@ -43,7 +43,7 @@ var techBonusScuare = 0;
 var techBonusLand = 0;
 // Colors
 var scuareColor;
-var squareColor = localStorage.getItem('skinColor') || 'white';
+var squareColor = localStorage.getItem('skinColorClassic') || 'white';
 var craftColor;
 // Theme Colors
 var bgColor;
@@ -63,7 +63,7 @@ var hitYellow = false;
 var hitTeal = false;
 // Others
 var alerted;
-var train = localStorage.getItem('trainSave') || "J";
+var train = localStorage.getItem('trainSaveClassic') || "J";
 // DOM Elements
 //    Buttons
 var settingsButton;
@@ -160,7 +160,7 @@ function draw() {
 		generalColor = '#393e46';
 		pressColor = 'gray';
 	}
-	cheatCode = localStorage.getItem('cheatCodeSave');
+	cheatCode = localStorage.getItem('cheatCodeSaveClassic');
 	if (cheatCode == "FeatherLessBiped") {
 		counter = -9999999
 	}
@@ -480,24 +480,24 @@ function mousePressed() {
 }
 
 function saveGame() {
-	localStorage.setItem('counterSave', counter);
-	localStorage.setItem('tierSave', tier);
-	localStorage.setItem('moneySave', money);
+	localStorage.setItem('counterSaveClassic', counter);
+	localStorage.setItem('tierSaveClassic', tier);
+	localStorage.setItem('moneySaveClassic', money);
 	//autos
-	localStorage.setItem('autoSaveNum', autoNumber);
-	localStorage.setItem('autoSaveOut', autoOutput);
-	localStorage.setItem('autoSaveCost', autoCost);
+	localStorage.setItem('autoSaveNumClassic', autoNumber);
+	localStorage.setItem('autoSaveOutClassic', autoOutput);
+	localStorage.setItem('autoSaveCostClassic', autoCost);
 	//workers
-	localStorage.setItem('workerSaveNum', workerNumber);
-	localStorage.setItem('workerSaveOut', workerOutput);
-	localStorage.setItem('workerSaveCost', workerCost);
+	localStorage.setItem('workerSaveNumClassic', workerNumber);
+	localStorage.setItem('workerSaveOutClassic', workerOutput);
+	localStorage.setItem('workerSaveCostClassic', workerCost);
 	//craftsmen
-	localStorage.setItem('craftSaveNum', craftNumber);
-	localStorage.setItem('craftSaveOut', craftOutput);
-	localStorage.setItem('craftSaveCost', craftCost);
+	localStorage.setItem('craftSaveNumClassic', craftNumber);
+	localStorage.setItem('craftSaveOutClassic', craftOutput);
+	localStorage.setItem('craftSaveCostClassic', craftCost);
 	//skins
-	localStorage.setItem('skinColor', squareColor);
-	localStorage.setItem('trainSave', train);
+	localStorage.setItem('skinColorClassic', squareColor);
+	localStorage.setItem('trainSaveClassic', train);
 }
 
 function shop() {

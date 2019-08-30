@@ -3,16 +3,16 @@ var backButton;
 var skinMenu;
 var fullSkins;
 var onSkins;
-var skinDef = localStorage.getItem('skinsSaveDef') || "on";
+var skinDef = localStorage.getItem('skinsSaveDefClassic') || "on";
 var resetButton;
 var themeMenu;
 var themeDark;
 var themeLight;
 var themeMTA;
-var themeDef = localStorage.getItem('themesSaveDef') || "light";
+var themeDef = localStorage.getItem('themesSaveDefClassic') || "light";
 var cheat;
 var cheatCode;
-theme = localStorage.getItem('themeSave');
+theme = localStorage.getItem('themeSaveClassic');
 
 function setup() {
 	createCanvas(600, 1200);
@@ -117,43 +117,43 @@ function skinsFull() {
 		if (confirmationFullMTA) {
 			skins = "full";
 			skinDef = "full";
-			localStorage.setItem('skinSave', skins);
+			localStorage.setItem('skinSaveClassic', skins);
 		}
 	} else {
 		skins = "full";
 		skinDef = "full";
-		localStorage.setItem('skinSave', skins);
+		localStorage.setItem('skinSaveClassic', skins);
 	}
 }
 
 function skinsOn() {
 	skins = "on";
 	skinDef = "on";
-	localStorage.setItem('skinSave', skins);
+	localStorage.setItem('skinSaveClassic', skins);
 }
 
 function skinsOff() {
 	skins = "off";
 	skinDef = "off";
-	localStorage.setItem('skinSave', skins);
+	localStorage.setItem('skinSaveClassic', skins);
 }
 
 function themesDark() {
 	themeDef = "dark";
 	theme = "dark";
-	localStorage.setItem('themeSave', theme);
+	localStorage.setItem('themeSaveClassic', theme);
 }
 
 function themesLight() {
 	themeDef = "light";
 	theme = "light";
-	localStorage.setItem('themeSave', theme);
+	localStorage.setItem('themeSaveClassic', theme);
 }
 
 function themesMTA() {
 	themeDef = "MTA";
 	theme = "MTA";
-	localStorage.setItem('themeSave', theme);
+	localStorage.setItem('themeSaveClassic', theme);
 }
 
 function reset() {
@@ -256,7 +256,7 @@ function changeSelect() {
 }
 
 function saveDefs() {
-	localStorage.setItem('themesSaveDef', themeDef);
-	localStorage.setItem('skinsSaveDef', skinDef);
-	localStorage.setItem('cheatCodeSave', cheatCode);
+	localStorage.setItem('themesSaveDefClassic', themeDef);
+	localStorage.setItem('skinsSaveDefClassic', skinDef);
+	localStorage.setItem('cheatCodeSaveClassic', cheatCode);
 }
