@@ -21,6 +21,7 @@ var resetColor = elementColor;
 var hitScuare;
 var hitScreen1;
 var hitScreen2;
+var hitScreen3;
 var hitScreen4;
 var hitUpgradeButton;
 var hitWorkerButton;
@@ -45,6 +46,7 @@ var craftsmen = parseInt(localStorage.getItem('craftsmenSave')) || 0;
 var craftsmenCost = parseInt(localStorage.getItem('craftsmenCostSave')) || 5000;
 
 function setup() {
+  frameRate(55);
   var canvas = createCanvas(600, windowHeight);
   canvas.parent('sketch');
 
@@ -77,6 +79,8 @@ function draw() {
     game();
   } else if (currentScreen == 'shop') {
     shop();
+  } else if (currentScreen == 'research') {
+    research();
   } else if (currentScreen == 'settings') {
     settings();
   }
@@ -98,6 +102,7 @@ function hitboxes() {
   hitScuare = collidePointRect(mouseX, mouseY, 200, 200, 200, 200);
   hitScreen1 = collidePointRect(mouseX, mouseY, 70, 10, 100, 50);
   hitScreen2 = collidePointRect(mouseX, mouseY, 190, 10, 100, 50);
+  hitScreen3 = collidePointRect(mouseX, mouseY, 310, 10, 100, 50);
   hitScreen4 = collidePointRect(mouseX, mouseY, 430, 10, 100, 50);
   if (currentScreen == 'shop') {
     //Shop elements
@@ -171,12 +176,16 @@ function populationGain() {
 function screenMenu() {
   // This is the UI for the menu that controls what screen you're on
   rectMode(CORNER);
+  //1
   fill(screen1Color);
   rect(70, 10, 100, 50, 10, 10, 0, 0);
+  //2
   fill(screen2Color);
   rect(190, 10, 100, 50, 10, 10, 0, 0);
+  //3
   fill(screen3Color);
   rect(310, 10, 100, 50, 10, 10, 0, 0);
+  //4
   fill(screen4Color);
   rect(430, 10, 100, 50, 10, 10, 0, 0);
   fill(textColor);
@@ -199,6 +208,9 @@ function mousePressed() {
   }
   if (hitScreen2) {
     currentScreen = 'shop';
+  }
+  if (hitScreen3) {
+    currentScreen = 'research';
   }
   if (hitScreen4) {
     currentScreen = 'settings'
@@ -264,7 +276,7 @@ function keyPressed() {
       craftsmen++;
       scuares = scuares - craftsmenCost;
       craftsmenCost = craftsmenCost * 1.15 ^ craftsmen;
-      alertify.notify('hired a craftsmen!', 'success', 1);
+      alertify.notify('hired a craftsman!', 'success', 1);
     } else if (keyCode == 51 && scuares < craftsmenCost) {
       alertify.notify('not enough scuares!', 'error', 1);
     }
@@ -394,7 +406,17 @@ function clickedEffects() {
   }
 }
 
+function research() {
+  // That one thing I've been working on for so long
+  background(bgColor);
+  screenMenu();
+  fill(textColor);
+  textSize(40);
+  text('research', 300, 100);
+}
+
 function reset() {
+  // Controls the reseting of game data
   var resetConfirm = confirm("Really reset all your game data?");
   if (resetConfirm) {
     scuares = 0
@@ -404,6 +426,7 @@ function reset() {
     workerCost = 1000;
     craftsmen = 0;
     craftsmenCost = 5000;
+    scuareColor = '#fafafa';
     localstorage.clear();
   }
 }
