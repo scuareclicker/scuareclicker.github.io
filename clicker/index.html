@@ -2,62 +2,82 @@
 <html lang="">
 
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121952828-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121952828-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-        gtag('config', 'UA-121952828-1');
-    </script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Scuare Clicker</title>
-    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
-    <script src="../libs/p5.min.js"></script>
-    <script src="../libs/addons/p5.dom.min.js"></script>
-    <script src="../libs/addons/p5.sound.min.js"></script>
-    <script src="../libs/p5.collide2d.js"></script>
-    <script src="../libs/p5.collide2d.min.js"></script>
-    <script src="../libs/addons/p5.dom.js"></script>
-    <script src="../libs/addons/p5.dom.min.js"></script>
-    <script src="sketch.js"></script>
+    gtag('config', 'UA-121952828-1');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Scuare Clicker</title>
+  <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+  <script src="../libs/p5.min.js"></script>
+  <script src="../libs/addons/p5.dom.min.js"></script>
+  <script src="../libs/addons/p5.sound.min.js"></script>
+  <script src="../libs/p5.collide2d.js"></script>
+  <script src="../libs/p5.collide2d.min.js"></script>
+  <script src="../libs/addons/p5.dom.js"></script>
+  <script src="../libs/addons/p5.dom.min.js"></script>
+  <script src="sketch.js"></script>
 
-    <!-- Alertify Libs -->
-    <!-- JavaScript -->
-    <script src="../libs/alertify/alertify.min.js"></script>
+  <!-- Alertify Libs -->
+  <!-- JavaScript -->
+  <script src="../libs/alertify/alertify.min.js"></script>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="../libs/alertify/css/alertify.min.css" />
-    <!-- Default theme -->
-    <link rel="stylesheet" href="../libs/alertify/css/themes/default.min.css" />
-    <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="../libs/alertify/css/themes/semantic.min.css" />
-    <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="../libs/alertify/css/themes/bootstrap.min.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="../libs/alertify/css/alertify.min.css" />
+  <!-- Default theme -->
+  <link rel="stylesheet" href="../libs/alertify/css/themes/default.min.css" />
+  <!-- Semantic UI theme -->
+  <link rel="stylesheet" href="../libs/alertify/css/themes/semantic.min.css" />
+  <!-- Bootstrap theme -->
+  <link rel="stylesheet" href="../libs/alertify/css/themes/bootstrap.min.css" />
 
-    <!--
+  <!--
     RTL version
     -->
-    <link rel="stylesheet" href="../libs/alertify/css/alertify.rtl.min.css" />
-    <!-- Default theme -->
-    <link rel="stylesheet" href="../libs/alertify/css/themes/default.rtl.min.css" />
-    <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="../libs/alertify/css/themes/semantic.rtl.min.css" />
-    <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="../libs/alertify/css/themes/bootstrap.rtl.min.css" />
+  <link rel="stylesheet" href="../libs/alertify/css/alertify.rtl.min.css" />
+  <!-- Default theme -->
+  <link rel="stylesheet" href="../libs/alertify/css/themes/default.rtl.min.css" />
+  <!-- Semantic UI theme -->
+  <link rel="stylesheet" href="../libs/alertify/css/themes/semantic.rtl.min.css" />
+  <!-- Bootstrap theme -->
+  <link rel="stylesheet" href="../libs/alertify/css/themes/bootstrap.rtl.min.css" />
 </head>
 
 <body>
   <div class="game">
     <div id="sketch"></div>
   </div>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAjR_e_uZPd50k6gv9d_00CJuAPK0QXWRc",
+      authDomain: "scuare-clicker.firebaseapp.com",
+      databaseURL: "https://scuare-clicker.firebaseio.com",
+      projectId: "scuare-clicker",
+      storageBucket: "",
+      messagingSenderId: "754880209260",
+      appId: "1:754880209260:web:f9838490665307a0"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </body>
 
 </html>
