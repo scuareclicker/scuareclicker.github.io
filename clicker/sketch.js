@@ -1,6 +1,6 @@
 //UI Variables
 var bgColor = '#eeeeee';
-var elementColor = 'white';
+var elementColor = '#fafafa';
 var textColor = 'black';
 var scuareColor = localStorage.getItem('scuareColorSave') || '#fafafa';
 var clickedColor = 'lightgray';
@@ -17,6 +17,9 @@ var tierUpgradeColor = elementColor;
 var workerBuyColor = elementColor;
 var craftsmenBuyColor = elementColor;
 var resetColor = elementColor;
+//Research Color Cariables
+var lockedResearchColor = '#90a4ae'
+var unlockedResearchColor = '#bdbdbd';
 //Hitbox Variables
 var hitScuare;
 var hitScreen1;
@@ -41,9 +44,19 @@ var population = 0;
 //Workers
 var workers = parseInt(localStorage.getItem('workerSave')) || 0;
 var workerCost = parseInt(localStorage.getItem('workerCostSave')) || 1000;
-//
+//Craftsmen
 var craftsmen = parseInt(localStorage.getItem('craftsmenSave')) || 0;
 var craftsmenCost = parseInt(localStorage.getItem('craftsmenCostSave')) || 5000;
+//Research Variables
+var majorResearchLevel = 0;
+var currentMajorProject;
+var minorResearchLevel = 0;
+var currentMinorProject;
+//Requirements
+var majorScuareRequirement = 0;
+var majorTierRequirement = 0;
+var majorWorkerRequirement = 0;
+var majorCraftsmenRequirement = 0;
 
 function setup() {
   frameRate(55);
@@ -411,8 +424,17 @@ function research() {
   background(bgColor);
   screenMenu();
   fill(textColor);
+  textAlign(CENTER);
   textSize(40);
   text('research', 300, 100);
+  textAlign(LEFT);
+  textSize(30);
+  text('major tech:', 10, 150);
+  // Re-enabling a stroke for the box
+  fill(lockedResearchColor);
+  rectMode(CENTER);
+
+  rect(300, 225, 580, 100, 10);
 }
 
 function reset() {
@@ -427,7 +449,7 @@ function reset() {
     craftsmen = 0;
     craftsmenCost = 5000;
     scuareColor = '#fafafa';
-    localstorage.clear();
+    localStorage.clear();
   }
 }
 
@@ -437,6 +459,7 @@ function settings() {
   screenMenu();
   clickedEffects();
   fill(textColor);
+  textAlign(CENTER)
   textSize(40);
   text('settings', 300, 100);
   // Reset Button
