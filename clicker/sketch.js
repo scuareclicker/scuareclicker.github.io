@@ -1,6 +1,6 @@
 //UI Variables
 var bgColor = '#eeeeee';
-var elementColor = 'white';
+var elementColor = '#fafafa';
 var textColor = 'black';
 var scuareColor = localStorage.getItem('scuareColorSave') || '#fafafa';
 var clickedColor = 'lightgray';
@@ -17,10 +17,14 @@ var tierUpgradeColor = elementColor;
 var workerBuyColor = elementColor;
 var craftsmenBuyColor = elementColor;
 var resetColor = elementColor;
+//Research Color Cariables
+var lockedResearchColor = '#90a4ae'
+var unlockedResearchColor = '#bdbdbd';
 //Hitbox Variables
 var hitScuare;
 var hitScreen1;
 var hitScreen2;
+var hitScreen3;
 var hitScreen4;
 var hitUpgradeButton;
 var hitWorkerButton;
@@ -40,11 +44,27 @@ var population = 0;
 //Workers
 var workers = parseInt(localStorage.getItem('workerSave')) || 0;
 var workerCost = parseInt(localStorage.getItem('workerCostSave')) || 1000;
-//
+//Craftsmen
 var craftsmen = parseInt(localStorage.getItem('craftsmenSave')) || 0;
 var craftsmenCost = parseInt(localStorage.getItem('craftsmenCostSave')) || 5000;
+//Research Variables
+var majorResearchLevel = 0;
+var currentMajorProject;
+var minorResearchLevel = 0;
+var currentMinorProject;
+//Requirements
+var majorScuareRequirement = 0;
+var majorTierRequirement = 0;
+var majorWorkerRequirement = 0;
+var majorCraftsmenRequirement = 0;
+//
+var minorScuareRequirement = 0;
+var minorTierRequirement = 0;
+var minorWorkerRequirement = 0;
+var minorCraftsmenRequirement = 0;
 
 function setup() {
+  frameRate(55);
   var canvas = createCanvas(600, windowHeight);
   canvas.parent('sketch');
 
@@ -77,6 +97,8 @@ function draw() {
     game();
   } else if (currentScreen == 'shop') {
     shop();
+  } else if (currentScreen == 'research') {
+    research();
   } else if (currentScreen == 'settings') {
     settings();
   }
@@ -98,6 +120,7 @@ function hitboxes() {
   hitScuare = collidePointRect(mouseX, mouseY, 200, 200, 200, 200);
   hitScreen1 = collidePointRect(mouseX, mouseY, 70, 10, 100, 50);
   hitScreen2 = collidePointRect(mouseX, mouseY, 190, 10, 100, 50);
+  hitScreen3 = collidePointRect(mouseX, mouseY, 310, 10, 100, 50);
   hitScreen4 = collidePointRect(mouseX, mouseY, 430, 10, 100, 50);
   if (currentScreen == 'shop') {
     //Shop elements
@@ -171,12 +194,16 @@ function populationGain() {
 function screenMenu() {
   // This is the UI for the menu that controls what screen you're on
   rectMode(CORNER);
+  //1
   fill(screen1Color);
   rect(70, 10, 100, 50, 10, 10, 0, 0);
+  //2
   fill(screen2Color);
   rect(190, 10, 100, 50, 10, 10, 0, 0);
+  //3
   fill(screen3Color);
   rect(310, 10, 100, 50, 10, 10, 0, 0);
+  //4
   fill(screen4Color);
   rect(430, 10, 100, 50, 10, 10, 0, 0);
   fill(textColor);
@@ -199,6 +226,9 @@ function mousePressed() {
   }
   if (hitScreen2) {
     currentScreen = 'shop';
+  }
+  if (hitScreen3) {
+    currentScreen = 'research';
   }
   if (hitScreen4) {
     currentScreen = 'settings'
@@ -264,7 +294,7 @@ function keyPressed() {
       craftsmen++;
       scuares = scuares - craftsmenCost;
       craftsmenCost = craftsmenCost * 1.15 ^ craftsmen;
-      alertify.notify('hired a craftsmen!', 'success', 1);
+      alertify.notify('hired a craftsman!', 'success', 1);
     } else if (keyCode == 51 && scuares < craftsmenCost) {
       alertify.notify('not enough scuares!', 'error', 1);
     }
@@ -394,7 +424,26 @@ function clickedEffects() {
   }
 }
 
+function research() {
+  // That one thing I've been working on for so long
+  background(bgColor);
+  screenMenu();
+  fill(textColor);
+  textAlign(CENTER);
+  textSize(40);
+  text('research', 300, 100);
+  textAlign(LEFT);
+  textSize(30);
+  text('major tech:', 10, 150);
+  // Re-enabling a stroke for the box
+  fill(lockedResearchColor);
+  rectMode(CENTER);
+
+  rect(300, 225, 580, 100, 10);
+}
+
 function reset() {
+  // Controls the reseting of game data
   var resetConfirm = confirm("Really reset all your game data?");
   if (resetConfirm) {
     scuares = 0
@@ -404,7 +453,8 @@ function reset() {
     workerCost = 1000;
     craftsmen = 0;
     craftsmenCost = 5000;
-    localstorage.clear();
+    scuareColor = '#fafafa';
+    localStorage.clear();
   }
 }
 
@@ -414,6 +464,7 @@ function settings() {
   screenMenu();
   clickedEffects();
   fill(textColor);
+  textAlign(CENTER)
   textSize(40);
   text('settings', 300, 100);
   // Reset Button
