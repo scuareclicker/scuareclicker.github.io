@@ -57,6 +57,11 @@ var majorScuareRequirement = 0;
 var majorTierRequirement = 0;
 var majorWorkerRequirement = 0;
 var majorCraftsmenRequirement = 0;
+//
+var minorScuareRequirement = 0;
+var minorTierRequirement = 0;
+var minorWorkerRequirement = 0;
+var minorCraftsmenRequirement = 0;
 
 function setup() {
   frameRate(55);
