@@ -65,7 +65,7 @@ var minorCraftsmenRequirement = 0;
 
 function setup() {
   frameRate(55);
-  var canvas = createCanvas(600, windowHeight);
+  var canvas = createCanvas(600, 700);
   canvas.parent('sketch');
 
   //Link to the wiki
